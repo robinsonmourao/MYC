@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name="myc_user")
 public class User implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +19,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Long id, String name, String numCadastro) {
-        this.id = id;
+    public User(String name, String numCadastro) {
         this.name = name;
         this.numCadastro = numCadastro;
     }

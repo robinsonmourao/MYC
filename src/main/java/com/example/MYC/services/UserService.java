@@ -13,16 +13,18 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User createUser (String nome, String numMatricula) {
+    public User createUser (String name, String numCadastro) {
 
-        Optional<User> user = userRepository.findByNumCadastro(numMatricula);
+        Optional<User> user = userRepository.findByNumCadastro(numCadastro);
 
         // FAIL CASE
-        if (!user.isEmpty()){
-            throw new RuntimeException("User already exists!");
+        if (user.isPresent()){
+            throw new IllegalArgumentException("User already exists!");
         }
         // SUCCESS CASE
-        return user.get();
+        User actualUser = new User(name, numCadastro);
+        userRepository.save(actualUser);
+        return actualUser;
     }
 
     public User readUserByName (String name) {
